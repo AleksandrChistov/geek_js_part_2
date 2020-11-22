@@ -28,7 +28,7 @@ class ShoppingCart {
             this.amount = goods.amount;
             this.countGoods = goods.countGoods;
             this.render();
-        });
+        }).catch(error => console.log('Error: ', error.message));
     }
 
     render() {
@@ -90,7 +90,7 @@ class ShoppingCart {
             headers: {
                 'Content-Typ': 'application/json'
             }
-        });
+        }).catch(error => console.log('Error: ', error.message));
     }
 
     _prepareShoppingCartDataForPutting() {
@@ -203,7 +203,7 @@ class ProductsList {
         this._fetchProductsData().then(goods => {
             this.productsData = goods;
             this.render();
-        });
+        }).catch(error => console.log('Error: ', error.message));
     }
 
     render() {
