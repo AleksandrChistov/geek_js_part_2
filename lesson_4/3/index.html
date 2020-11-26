@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Form validation</title>
+</head>
+<body>
+    <div id="app">
+        <form class="form" id="form" action="#" novalidate>
+            <h1>Enter the correct details in the form below</h1>
+            <label for="name">
+                <input type="text" name="name" id="name" placeholder="Name: ">
+                <span class="error" aria-live="polite">The Name field can only contain letters</span>
+            </label>
+            <label for="phone">
+                <input type="phone" name="phone" id="phone" placeholder="Phone: ">
+                <span class="error" aria-live="polite">The Phone field can only look like +7(000)000-0000</span>
+            </label>
+            <label for="email">
+                <input type="email" name="email" id="email" placeholder="E-mail: ">
+                <span class="error" aria-live="polite">The E-mail field can only look like mymail@mail.ru or my.mail@mail.ru or my-mail@mail.ru</span>
+            </label>
+            <label for="text">
+                <textarea name="text" id="text" cols="30" rows="10"></textarea>
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
