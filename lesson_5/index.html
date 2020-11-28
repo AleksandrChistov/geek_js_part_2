@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <button @click="showProductInCart" class="btn btn-cart" type="button">Корзина</button>
+            <label class="search" for="search">
+                <input v-model="searchLine" @input="filterGoods" id="search" type="search" name="search" placeholder="Поиск по сайту">
+                <span class="search_icon">&#128269;</span>
+            </label>
+            <section v-if="isVisibleCart" class="shopping-cart">
+                <p v-for="productInCart in productsInCart.contents" :key="productsInCart.id">
+                    <span>{{productInCart.name}}</span>
+                    <span>
+                        <span @click="decreaseProductFromCart(productInCart.id)" class="minus">-</span>
+                        {{productInCart.quantity}}
+                        <span @click="increaseProductFromCart(productInCart.id)" class="plus">+</span>
+                    </span>
+                    <span>{{productInCart.price * productInCart.quantity}}</span>
+                    <span @click="deleteProductFromCart(productInCart.id)" class="delete">X</span>
+                </p>
+                <p class="total">
+                    <span>Итого:</span>
+                    <span>{{productsInCart.countGoods}} {{declensionOfText()}}</span>
+                    <span>{{productsInCart.amount}}</span>
+                </p>
+            </section>
+        </header>
+        <main>
+            <div v-if="filteredProducts.length" class="products">
+                <div v-for="product in filteredProducts" :key="product.id" class="product-item">
+                    <img :src="defaultImg.url" :alt="defaultImg.alt">
+                    <h3>{{product.title}}</h3>
+                    <p>{{product.price}}</p>
+                    <button @click="addProductToCart(product)" class="btn buy-btn">Купить</button>
+                </div>
+            </div>
+            <div v-else="filteredProducts.length" class="no-products">Товары не найдены</div>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
