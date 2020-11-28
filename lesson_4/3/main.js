@@ -1,28 +1,71 @@
-const form = document.getElementById('form');
-const name = document.getElementById('name');
-const phone = document.getElementById('phone');
-const email = document.getElementById('email');
+class Validator {
+    constructor() {
+        this.form = document.getElementById('form');
+        this.formDataForValidation = [
+            {
+                element: document.getElementById('name'),
+                pattern: /^([a-zа-яё\s]+)$/i,
+            },
+            {
+                element: document.getElementById('phone'),
+                pattern: /^(\+7\(\d{3}\)\d{3}-\d{4})$/i
+            },
+            {
+                element: document.getElementById('email'),
+                pattern: /^([\w]+\.?\-?[\w]+@[a-z]+\.[a-z]{2,4})$/i
+            },
+        ]
+        this._init();
+    }
 
-form.addEventListener('submit', validation);
+    _init() {
+        this.form.addEventListener('submit', (e) => this._validateData(e));
 
-function validation(e) {
-    e.preventDefault();
+        const validateInput = Validator.debounce((e, data) => {
+            const value = e.target.value.trim();
+            const isValid = data.pattern.test(value);
+            this._showResult(isValid, data);
+        }, 300);
 
-    const regexpForName = /^([a-zа-яё|\s]+)$/i;
-    const nameValue = name.value.trim();
-    const nameIsValid = regexpForName.test(nameValue);
+        this.formDataForValidation.forEach(data => {
+            data.element.addEventListener('input', (e) => validateInput(e, data));
+        })
+    }
 
-    name.nextElementSibling.style.display = nameIsValid ? 'none' : 'block';
+    static debounce(fn, ms) {
+        let timeout;
+        return function (...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                fn(...args);
+            }
+            clearTimeout(timeout);
+            timeout = setTimeout(later, ms);
+        }
+    }
 
-    const regexpForPhone = /^(\+7\(\d{3}\)\d{3}\-\d{4})$/i;
-    const phoneValue = phone.value.trim();
-    const phoneIsValid = regexpForPhone.test(phoneValue);
+    _validateData(e) {
+        e.preventDefault();
 
-    phone.nextElementSibling.style.display = phoneIsValid ? 'none' : 'block';
+        this.formDataForValidation.forEach(data => {
+            const value = data.element.value.trim();
+            const isValid = data.pattern.test(value);
+            this._showResult(isValid, data);
+        })
+    }
 
-    const regexpForEmail = /^([a-z0-9]+\.?\-?[a-z0-9]+@[a-z]+\.[a-z]{2,4})$/i;
-    const emailValue = email.value.trim();
-    const emailIsValid = regexpForEmail.test(emailValue);
+    _showResult(isValid, data) {
+        if (!isValid) {
+            data.element.classList.remove('valid');
+            data.element.classList.add('invalid');
+            data.element.nextElementSibling.style.display = 'block';
+            return;
+        }
 
-    email.nextElementSibling.style.display = emailIsValid ? 'none' : 'block';
+        data.element.classList.remove('invalid');
+        data.element.classList.add('valid');
+        data.element.nextElementSibling.style.display = 'none';
+    }
 }
+
+new Validator();

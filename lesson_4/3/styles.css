@@ -29,6 +29,18 @@
     padding: 10px;
 }
 
+.form .invalid {
+    border: 2px solid darkred;
+}
+
+.form .valid {
+    border: 2px solid darkgreen;
+}
+
+.form input:focus {
+    outline: none;
+}
+
 .error {
     display: none;
     margin-top: 5px;
