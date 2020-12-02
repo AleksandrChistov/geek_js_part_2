@@ -16,35 +16,7 @@ var app = new Vue({
         searchLine: '',
     },
     methods: {
-        getProductsForView() {
-            this._fetchProductsData('https://test-19da2.firebaseio.com/goods.json')
-                .then(goods => this.filteredProducts = this.products = goods)
-                .catch(error => console.log('Error: ', error.message))
-        },
-        getProductsForCart() {
-            this._fetchProductsData('https://test-19da2.firebaseio.com/shoppingCart.json')
-                .then(goods => {
-                    if (goods.contents) {
-                        this.productsInCart.contents = goods.contents;
-                    }
-                    this.productsInCart.amount = goods.amount;
-                    this.productsInCart.countGoods = goods.countGoods;
-                })
-                .catch(error => console.log('Error: ', error.message));
-        },
-        _fetchProductsData(url) {
-            return fetch(url).then(goods => goods.json());
-        },
-        _putProductsData(shoppingCart) {
-            fetch(`https://test-19da2.firebaseio.com/shoppingCart.json`, {
-                method: 'PUT',
-                body: JSON.stringify(shoppingCart),
-                headers: {
-                    'Content-Typ': 'application/json'
-                }
-            }).catch(error => console.log('Error: ', error.message));
-        },
-        showProductInCart() {
+        showCart() {
             this.isVisibleCart = !this.isVisibleCart;
         },
         declensionOfText() {
@@ -54,16 +26,16 @@ var app = new Vue({
             return words[ (countGoods % 100 > 4 && countGoods % 100 < 20)? 2 : cases[(countGoods % 10 < 5) ? countGoods % 10 : 5]];
         },
         decreaseProductFromCart(id) {
-            this.productsInCart.contents.map(product => {
-                if (product.id == id) {
-                    if (product.quantity === 1) {
-                        return;
-                    }
-                    product.quantity--;
-                    this.productsInCart.amount -= product.price;
-                    this.productsInCart.countGoods--;
-                }
-            });
+            const currentProduct = this.productsInCart.contents.find(product => product.id == id);
+
+            if (currentProduct.quantity === 1) {
+                return;
+            }
+
+            currentProduct.quantity--;
+            this.productsInCart.amount -= currentProduct.price;
+            this.productsInCart.countGoods--;
+
             this._putProductsData(this.productsInCart);
         },
         increaseProductFromCart(id) {
@@ -81,17 +53,18 @@ var app = new Vue({
                 if (product.id == id) {
                     this.productsInCart.countGoods -= product.quantity;
                     this.productsInCart.amount -= product.price * product.quantity;
-                } else {
-                    return product;
+                    return false;
                 }
+
+                return true;
             });
             this._putProductsData(this.productsInCart);
         },
-        addProductToCart(currentProduct) {
-            let currentProductInCart = this.productsInCart.contents.find(product => product.id == currentProduct.id);
+        addProductToCart(id) {
+            let currentProductInCart = this.productsInCart.contents.find(product => product.id == id);
 
             if (!currentProductInCart) {
-                currentProductInCart = this.products.find(product => product.id == currentProduct.id);
+                currentProductInCart = this.products.find(product => product.id == id);
                 this.productsInCart.contents.push({
                     id: currentProductInCart.id,
                     price: currentProductInCart.price,
@@ -110,7 +83,33 @@ var app = new Vue({
         filterGoods() {
             this.filteredProducts = this.products.filter(product =>
                 product.title.toLowerCase().includes(this.searchLine.trim().toLowerCase()));
-        }
+        },
+        getProductsForView() {
+            this._fetchProductsData('https://test-19da2.firebaseio.com/goods.json')
+                .then(goods => this.filteredProducts = this.products = goods)
+                .catch(error => console.log('Error: ', error.message))
+        },
+        getProductsForCart() {
+            this._fetchProductsData('https://test-19da2.firebaseio.com/shoppingCart.json')
+                .then(goods => {
+                    this.productsInCart.contents = goods.contents || [];
+                    this.productsInCart.amount = goods.amount;
+                    this.productsInCart.countGoods = goods.countGoods;
+                })
+                .catch(error => console.log('Error: ', error.message));
+        },
+        _fetchProductsData(url) {
+            return fetch(url).then(goods => goods.json());
+        },
+        _putProductsData(shoppingCart) {
+            fetch(`https://test-19da2.firebaseio.com/shoppingCart.json`, {
+                method: 'PUT',
+                body: JSON.stringify(shoppingCart),
+                headers: {
+                    'Content-Typ': 'application/json'
+                }
+            }).catch(error => console.log('Error: ', error.message));
+        },
     },
     mounted() {
         this.getProductsForView();

@@ -8,13 +8,13 @@
 <body>
     <div id="app">
         <header>
-            <button @click="showProductInCart" class="btn btn-cart" type="button">Корзина</button>
+            <button @click="showCart" class="btn btn-cart" type="button">Корзина</button>
             <label class="search" for="search">
                 <input v-model="searchLine" @input="filterGoods" id="search" type="search" name="search" placeholder="Поиск по сайту">
                 <span class="search_icon">&#128269;</span>
             </label>
-            <section v-if="isVisibleCart" class="shopping-cart">
-                <p v-for="productInCart in productsInCart.contents" :key="productsInCart.id">
+            <section v-show="isVisibleCart" class="shopping-cart">
+                <p v-for="productInCart in productsInCart.contents" :key="productInCart.id">
                     <span>{{productInCart.name}}</span>
                     <span>
                         <span @click="decreaseProductFromCart(productInCart.id)" class="minus">-</span>
@@ -37,7 +37,7 @@
                     <img :src="defaultImg.url" :alt="defaultImg.alt">
                     <h3>{{product.title}}</h3>
                     <p>{{product.price}}</p>
-                    <button @click="addProductToCart(product)" class="btn buy-btn">Купить</button>
+                    <button @click="addProductToCart(product.id)" class="btn buy-btn">Купить</button>
                 </div>
             </div>
             <div v-else="filteredProducts.length" class="no-products">Товары не найдены</div>
