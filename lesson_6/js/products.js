@@ -7,12 +7,30 @@ Vue.component('products', {
             <div v-else="filteredProducts.length" class="no-products">Товары не найдены</div>
         </main>
     `,
-    props: {
-        filteredProducts: {
-            default: () => {
-                return []
-            }
+    data() {
+        return {
+            products: [],
+            filteredProducts: [],
+        }
+    },
+    methods: {
+        filterGoods(searchLine) {
+            this.filteredProducts = this.products.filter(product =>
+                product.title.toLowerCase().includes(searchLine.trim().toLowerCase()));
         },
+        addProductToCart(id) {
+            this.$root.$refs.cart.addProductToCart(id);
+        },
+        getProduct(id) {
+            return this.products.find(product => product.id == id);
+        },
+        _getProductsForView() {
+            this.$parent.fetchProductsData('https://test-19da2.firebaseio.com/goods.json')
+                .then(goods => this.filteredProducts = this.products = goods || [])
+        },
+    },
+    mounted() {
+        this._getProductsForView();
     },
 })
 
@@ -22,7 +40,7 @@ Vue.component('product', {
             <img :src="defaultImg.url" :alt="defaultImg.alt">
             <h3>{{product.title}}</h3>
             <p>{{product.price}}</p>
-            <button @click="addProductToCart(product.id)" class="btn buy-btn">Купить</button>
+            <button @click="$parent.addProductToCart(product.id)" class="btn buy-btn">Купить</button>
         </div>
     `,
     props: ['product'],
@@ -33,11 +51,6 @@ Vue.component('product', {
                 alt: 'Product'
             },
         }
-    },
-    methods: {
-        addProductToCart(id) {
-            this.$parent.$emit('add-product-to-cart', id)
-        },
     },
 })
 

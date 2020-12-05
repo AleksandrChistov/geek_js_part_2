@@ -1,13 +1,13 @@
 Vue.component('search', {
     template: `
         <label class="search" for="search">
-            <input v-model="searchLine" @input="filterItems" type="search" :id="name" :name="name" :placeholder="placeholder">
+            <input v-model="searchLine" @input="filterItems(searchLine)" type="search" :id="name" :name="name" :placeholder="placeholder">
             <span class="search_icon">&#128269;</span>
         </label>
     `,
     props: {
         name: {
-            default: 'name'
+            default: 'search'
         },
         placeholder: {
             default: 'Поиск по сайту'
@@ -33,6 +33,6 @@ Vue.component('search', {
         }
     },
     mounted() {
-        this.filterItems = this._debounce(() => this.$emit('filter-goods', this.searchLine), 300);
+        this.filterItems = this._debounce((searchLine) => this.$emit('search-line-changed', searchLine), 300);
     },
 })
