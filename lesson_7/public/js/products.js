@@ -22,10 +22,10 @@ Vue.component('products', {
             this.$root.$refs.cart.addProductToCart(id);
         },
         getProduct(id) {
-            return this.products.find(product => product.id == id);
+            return this.products.find(product => product.id === +id);
         },
         _getProductsForView() {
-            this.$parent.fetchProductsData('https://test-19da2.firebaseio.com/goods.json')
+            this.$parent.fetchProductsData('/api/products')
                 .then(goods => this.filteredProducts = this.products = goods || [])
         },
     },
@@ -37,17 +37,25 @@ Vue.component('products', {
 Vue.component('product', {
     template: `
         <div class="product-item">
-            <img :src="defaultImg.url" :alt="defaultImg.alt">
-            <h3>{{product.title}}</h3>
+            <img :src="imgSrc" :alt="imgAlt">
+            <h3>{{product.name}}</h3>
             <p>{{product.price}}</p>
             <button @click="$parent.addProductToCart(product.id)" class="btn buy-btn">Купить</button>
         </div>
     `,
     props: ['product'],
+    computed: {
+        imgSrc: function() {
+            return this.product.img ? this.product.img.src : this.defaultImg.src;
+        },
+        imgAlt: function() {
+            return this.product.img ? this.product.img.alt : this.defaultImg.alt;
+        }
+    },
     data() {
         return {
             defaultImg: {
-                url: 'https://via.placeholder.com/150',
+                src: 'https://via.placeholder.com/150',
                 alt: 'Product'
             },
         }

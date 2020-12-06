@@ -116,7 +116,7 @@ header {
 
 .shopping-cart span {
     display: inline-block;
-    width: 150px;
+    width: 140px;
     max-width: 100%;
 }
 
@@ -133,6 +133,22 @@ header {
     font-family: cursive;
     color: red;
     text-align: center;
+}
+
+.img-icon {
+    width: 25px;
+    height: 25px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.shopping-cart .sum {
+    width: 120px;
+}
+
+.shopping-cart .count-goods {
+    width: 180px;
+    margin-left: 10px;
 }
 
 .minus {

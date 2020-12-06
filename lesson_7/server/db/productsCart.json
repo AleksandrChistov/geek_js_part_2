@@ -1,0 +1,36 @@
+{
+    "amount": 99880,
+    "countGoods": 5,
+    "contents": [
+        {
+            "id": 123,
+            "name": "Notebook",
+            "price": 96000,
+            "quantity": 1,
+            "img": {
+                "src": "./img/small/laptop.png",
+                "alt": "Laptop icon"
+            }
+        },
+        {
+            "quantity": 2,
+            "id": 345,
+            "name": "Keyboard",
+            "price": 1600,
+            "img": {
+                "src": "./img/keyboard.png",
+                "alt": "Keyboard"
+            }
+        },
+        {
+            "quantity": 2,
+            "id": 234,
+            "name": "Mouse",
+            "price": 340,
+            "img": {
+                "src": "./img/mouse.png",
+                "alt": "Mouse"
+            }
+        }
+    ]
+}
