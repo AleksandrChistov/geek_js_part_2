@@ -132,7 +132,8 @@ header {
     width: 20px;
     font-family: cursive;
     color: red;
-    text-align: center;
+    border: none;
+    background: none;
 }
 
 .img-icon {
@@ -168,6 +169,15 @@ header {
 }
 
 .minus:active, .plus:active, .delete:active {
+    opacity: 0.5;
+}
+
+button:active, button:focus {
+    outline: none;
+}
+
+.minus:disabled, .plus:disabled {
+    cursor: initial;
     opacity: 0.5;
 }
 

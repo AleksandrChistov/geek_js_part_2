@@ -48,5 +48,16 @@ const app = new Vue({
                 .then(result => result.json())
                 .catch(error => this.$refs.errorHandler.emitError(error.message));
         },
+        debounce(fn, ms) {
+            let timeout;
+            return function (...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    fn(...args);
+                }
+                clearTimeout(timeout);
+                timeout = setTimeout(later, ms);
+            }
+        }
     },
 })

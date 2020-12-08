@@ -16,7 +16,7 @@ Vue.component('products', {
     methods: {
         filterGoods(searchLine) {
             this.filteredProducts = this.products.filter(product =>
-                product.title.toLowerCase().includes(searchLine.trim().toLowerCase()));
+                product.name.toLowerCase().includes(searchLine.trim().toLowerCase()));
         },
         addProductToCart(id) {
             this.$root.$refs.cart.addProductToCart(id);

@@ -1,6 +1,6 @@
 {
-    "amount": 99880,
-    "countGoods": 5,
+    "amount": 100560,
+    "countGoods": 7,
     "contents": [
         {
             "id": 123,
@@ -23,7 +23,7 @@
             }
         },
         {
-            "quantity": 2,
+            "quantity": 4,
             "id": 234,
             "name": "Mouse",
             "price": 340,

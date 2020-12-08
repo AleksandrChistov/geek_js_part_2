@@ -19,20 +19,11 @@ Vue.component('search', {
         }
     },
     methods: {
-        filterItems() {},
-        _debounce(fn, ms) {
-            let timeout;
-            return function (...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    fn(...args);
-                }
-                clearTimeout(timeout);
-                timeout = setTimeout(later, ms);
-            }
-        }
+        filterItems(searchLine) {
+            this.$emit('search-line-changed', searchLine);
+        },
     },
     mounted() {
-        this.filterItems = this._debounce((searchLine) => this.$emit('search-line-changed', searchLine), 300);
+        this.filterItems = this.$parent.debounce(this.filterItems, 300);
     },
 })

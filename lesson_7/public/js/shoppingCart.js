@@ -113,6 +113,9 @@ Vue.component('shopping-cart', {
     },
     mounted() {
         this._getProductsForCart();
+        this.decreaseProductFromCart = this.$parent.debounce(this.decreaseProductFromCart, 200);
+        this.increaseProductFromCart = this.$parent.debounce(this.increaseProductFromCart, 200);
+        this.addProductToCart = this.$parent.debounce(this.addProductToCart, 200);
     },
 })
 
@@ -122,12 +125,12 @@ Vue.component('shopping-cart-item', {
             <span>{{product.name}}</span>
             <img class="img-icon" :src="imgSrc" :alt="imgAlt">
             <span>
-                <span @click="$parent.decreaseProductFromCart(product.id)" class="minus">-</span>
+                <button @click="$parent.decreaseProductFromCart(product.id)" class="minus">-</button>
                 {{product.quantity}}
-                <span @click="$parent.increaseProductFromCart(product.id)" class="plus">+</span>
+                <button @click="$parent.increaseProductFromCart(product.id)" class="plus">+</button>
             </span>
             <span class="sum">{{product.price * product.quantity}}</span>
-            <span @click="$parent.deleteProductFromCart(product.id)" class="delete">X</span>
+            <button @click="$parent.deleteProductFromCart(product.id)" class="delete">X</button>
         </p>
     `,
     props: ['product'],
