@@ -1,0 +1,22 @@
+{
+  "name": "js-part_2_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lesson_7/server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksandrChistov/geek_js_part_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleksandrChistov/geek_js_part_2/issues"
+  },
+  "homepage": "https://github.com/AleksandrChistov/geek_js_part_2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 123,
+    "name": "Notebook",
+    "price": 96000,
+    "img": {
+      "src": "./img/laptop.png",
+      "alt": "Laptop"
+    }
+  },
+  {
+    "id": 234,
+    "name": "Mouse",
+    "price": 340,
+    "img": {
+      "src": "./img/mouse.png",
+      "alt": "Mouse"
+    }
+  },
+  {
+    "id": 345,
+    "name": "Keyboard",
+    "price": 1600,
+    "img": {
+      "src": "./img/keyboard.png",
+      "alt": "Keyboard"
+    }
+  },
+  {
+    "id": 456,
+    "name": "Gamepad",
+    "price": 3000,
+    "img": {
+      "src": "./img/gamepad.png",
+      "alt": "Gamepad"
+    }
+  }
+]
