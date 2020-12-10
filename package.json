@@ -4,7 +4,7 @@
   "description": "",
   "main": "lesson_8/server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/AleksandrChistov/geek_js_part_2#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0"
   }
 }
