@@ -4,11 +4,11 @@ const app = express();
 const cart = require('./cartRouter');
 
 app.use(express.json());
-app.use('/', express.static('lesson_7/public'));
+app.use('/', express.static('lesson_8/public'));
 app.use('/api/cart', cart);
 
 app.get('/api/products', (req, res) => {
-    fs.readFile('lesson_7/server/db/products.json', 'utf-8', (err, data) => {
+    fs.readFile('lesson_8/server/db/products.json', 'utf-8', (err, data) => {
         if(err){
             res.sendStatus(404, JSON.stringify({result:0, text: err}));
         } else {
