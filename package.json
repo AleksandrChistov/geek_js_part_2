@@ -2,7 +2,7 @@
   "name": "js-part_2_express",
   "version": "1.0.0",
   "description": "",
-  "main": "lesson_7/server/server.js",
+  "main": "lesson_8/server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
