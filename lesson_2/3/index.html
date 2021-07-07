@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <button class="btn btn-cart" id="calculate" type="button">Calculate</button>
+        <div class="total" id="total"></div>
+    </header>
+    <main>
+        <div class="products">
+            <form action="#" class="form">
+                <div class="size" id="size">
+                    <label><input type="radio" name="size" id="small" value="small">Small</label>
+                    <label><input type="radio" name="size" id="big" value="big">Big</label>
+                </div>
+
+                <div class="filling" id="filling">
+                    <label><input type="radio" name="filling" id="cheese" value="cheese">With cheese</label>
+                    <label><input type="radio" name="filling" id="salad" value="salad">With salad</label>
+                    <label><input type="radio" name="filling" id="potatoes" value="potatoes">With potatoes</label>
+                </div>
+
+                <div class="additionally">
+                    <label><input type="checkbox" id="seasoning" name="seasoning">Sprinkle with seasoning</label>
+                    <label><input type="checkbox" id="mayonnaise" name="mayonnaise">Pour mayonnaise</label>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
